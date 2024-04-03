@@ -14,7 +14,7 @@ function sleep(ms = 0) {
 }
 
 register('command', async () => {
-    for (const ign in ignoreList) {
+    for (const ign of ignoreList) {
         ChatLib.command(`ignore add ${ign}`)
         ChatLib.chat(`Ignoring ${ign}`)
         await sleep(Math.random() * 500)
@@ -23,7 +23,7 @@ register('command', async () => {
 }).setName("ignorethepeople").setAliases('itp', 'ignorelist', 'loserslist')
 
 register('command', async () => {
-    for (const ign in ignoreList) {
+    for (const ign of ignoreList) {
         ChatLib.command(`ignore remove ${ign}`)
         ChatLib.chat(`Unignoring ${ign}`)
         await sleep(Math.random() * 500)
