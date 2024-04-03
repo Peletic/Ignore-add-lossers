@@ -1,52 +1,32 @@
-let ignoreList = ["OhTryhqrd",
-"Scubacrazy",
-"feelNavyblue",
-"sofiq",
-"H7_D",
-"FrankJumson",
-"Risoc",
-"KDubOnTop",
-"mirrorfarmerr",
-"TerminatorArch",
-"potatomaster17",
-"BiK_D",
-"osmydabot",
-"Egemam",
-"CalvinE",
-"zwMatters",
-"LogicalLiquids",
-"Fantazium",
-"Nitroxyle",
-"Zykore",
-"ElAlexioMC"]
+const ignoreList = []
 
-register('command', () => {
-    let i = 0;
-    function a () {
-    if(i < ignoreList.length){
-        ChatLib.command(`ignore add ${ignoreList[i]}`)
-        ChatLib.chat(`Ignoring ${ignoreList[i]}`)
-        i++
-        setTimeout(a, 100)
-    } else {
-        ChatLib.chat('Finished ignoring the people')
-        return;
+fetch('https://raw.githubusercontent.com/peletic/example-gist/main/usernames').then(res => {
+    res.text().then(res => {
+        console.log(res)
+        const lines = res.split(/\r?\n/)
+        lines.pop()
+        ignoreList.push(...lines)
+    })
+})
+
+function sleep(ms = 0) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+register('command', async () => {
+    for (const ign in ignoreList) {
+        ChatLib.command(`ignore add ${ign}`)
+        ChatLib.chat(`Ignoring ${ign}`)
+        await sleep(Math.random() * 500)
     }
-    }
-    a()
+    ChatLib.chat(`Finished ignoring the ${ignoreList.length} people`)
 }).setName("ignorethepeople").setAliases('itp', 'ignorelist', 'loserslist')
-register('command', () => {
-    let i = 0;
-    function a () {
-    if(i < ignoreList.length){
-        ChatLib.command(`ignore remove ${ignoreList[i]}`)
-        ChatLib.chat(`Unignoring ${ignoreList[i]}`)
-        i++
-        setTimeout(a, 100)
-    } else {
-        ChatLib.chat('Finished unignoring the people')
-        return;
+
+register('command', async () => {
+    for (const ign in ignoreList) {
+        ChatLib.command(`ignore remove ${ign}`)
+        ChatLib.chat(`Unignoring ${ign}`)
+        await sleep(Math.random() * 500)
     }
-    }
-    a()
+    ChatLib.chat(`Finished unignoring the ${ignoreList.length} people`)
 }).setName("unignorethepeople").setAliases('itp2', 'unignorelist', 'winnerslist')
