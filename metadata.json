@@ -1,0 +1,9 @@
+{
+  "name": "ignorer",
+  "creator": "IcyHenryT, and Scubacrazy helped!",
+  "description": "ignore the people",
+  "version": "1.0.0",
+  "entry": "index.js",
+	"requires": [
+    ]
+}
